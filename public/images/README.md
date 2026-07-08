@@ -6,9 +6,11 @@ are missing):
 
 | File | Where it shows | Suggested content |
 | --- | --- | --- |
-| `campus.jpg` | Hero, right side | AUI campus |
-| `car.jpg` | "How it works" section | Riders in a car |
-| `booking.jpg` | "How it works" section, smaller | Someone booking a ride on their phone |
+| `car.jpg` | Hero, right side | Riders in a car |
+| `campus.jpg` | "How it works" section, smaller | AUI campus |
+
+(`booking.jpg` is currently not shown; the file can stay here in case a
+future page needs it.)
 
 Landscape orientation works best (roughly 4:3 for campus, 16:10 for the
 others). Keep each under ~400 KB so the page stays fast: https://squoosh.app

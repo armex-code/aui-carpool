@@ -61,9 +61,9 @@ export default function LandingPage() {
               </p>
             </div>
             <Photo
-              src="/images/campus.jpg"
-              alt="Al Akhawayn University campus in Ifrane"
-              className="hidden w-full rounded-3xl border border-pine-700/60 object-cover shadow-lift lg:block lg:aspect-[4/3]"
+              src="/images/car.jpg"
+              alt="AUI members sharing a ride out of Ifrane"
+              className="hidden w-full rounded-3xl border border-pine-700/60 object-cover shadow-lift lg:block lg:aspect-[16/11]"
             />
           </div>
 
@@ -170,7 +170,7 @@ export default function LandingPage() {
       {/* How it works */}
       <section className="border-y border-line bg-paper-dim/60">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-          <div className="grid gap-10 lg:grid-cols-[1fr_400px] lg:items-center">
+          <div className="grid gap-10 lg:grid-cols-[1fr_384px] lg:items-center">
             <div>
               <h2 className="font-display text-2xl font-semibold text-ink sm:text-3xl">
                 How it works
@@ -189,18 +189,11 @@ export default function LandingPage() {
                 ))}
               </ol>
             </div>
-            <div className="space-y-4">
-              <Photo
-                src="/images/car.jpg"
-                alt="AUI members sharing a ride out of Ifrane"
-                className="w-full rounded-3xl border border-line object-cover shadow-card sm:aspect-[16/10]"
-              />
-              <Photo
-                src="/images/booking.jpg"
-                alt="Booking a seat from a phone"
-                className="ml-auto w-3/4 rounded-3xl border border-line object-cover shadow-card sm:aspect-[16/9]"
-              />
-            </div>
+            <Photo
+              src="/images/campus.jpg"
+              alt="Al Akhawayn University campus in Ifrane"
+              className="w-full max-w-sm self-center rounded-3xl border border-line object-cover shadow-card sm:aspect-[4/3] lg:justify-self-end"
+            />
           </div>
 
           <div className="relative mt-12 overflow-hidden rounded-3xl bg-pine-900 px-6 py-10 sm:px-10">
