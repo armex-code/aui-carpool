@@ -112,6 +112,13 @@ export function memberSince(iso: string) {
   }).format(new Date(iso));
 }
 
+/** "0612345678" / "+212612345678" → "06 12 34 56 78" for display. */
+export function formatPhone(phone: string) {
+  let digits = phone.replace(/\D/g, "");
+  if (digits.startsWith("212")) digits = `0${digits.slice(3)}`;
+  return digits.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
+}
+
 export function whatsappLink(phone: string, message: string) {
   const digits = phone.replace(/[^\d+]/g, "").replace(/^\+/, "");
   const normalized = digits.startsWith("0")

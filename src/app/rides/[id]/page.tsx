@@ -29,7 +29,7 @@ import { RatingLine } from "@/components/stars";
 import { RouteLine } from "@/components/route-line";
 import { VerifiedBadge } from "@/components/verified-badge";
 import { Badge, ButtonLink, Card, Notice } from "@/components/ui";
-import { WhatsAppButton } from "@/components/whatsapp-button";
+import { ContactReveal } from "@/components/contact-reveal";
 import { BookingForm } from "./booking-form";
 
 export const metadata: Metadata = { title: "Ride details" };
@@ -221,12 +221,13 @@ export default async function RideDetailPage({
                     You're in — {pluralize(booking.seats, "seat")} confirmed.
                   </p>
                   {contact && (
-                    <WhatsAppButton
-                      href={whatsappLink(
+                    <ContactReveal
+                      phone={contact.phone}
+                      whatsappHref={whatsappLink(
                         contact.phone,
                         `Salam ${contact.name.split(" ")[0]}! It's ${profile.fullName} from AUI Carpool — about the ${ride.fromCity} → ${ride.toCity} ride.`,
                       )}
-                      label={`WhatsApp ${contact.name.split(" ")[0]}`}
+                      whatsappLabel={`WhatsApp ${contact.name.split(" ")[0]}`}
                     />
                   )}
                   <p className="text-center text-xs text-ink-faint">

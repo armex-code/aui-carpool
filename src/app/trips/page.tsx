@@ -36,7 +36,7 @@ import type {
 } from "@/lib/types";
 import { Avatar } from "@/components/avatar";
 import { RatingLine } from "@/components/stars";
-import { WhatsAppButton } from "@/components/whatsapp-button";
+import { ContactReveal } from "@/components/contact-reveal";
 import { Badge, Button, ButtonLink, EmptyState, Notice } from "@/components/ui";
 
 export const metadata: Metadata = { title: "My trips" };
@@ -127,13 +127,14 @@ async function RidingBookingCard({
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {contact && !past && (
-            <WhatsAppButton
-              className="w-auto px-4 py-2 text-xs"
-              href={whatsappLink(
+            <ContactReveal
+              compact
+              phone={contact.phone}
+              whatsappHref={whatsappLink(
                 contact.phone,
                 `Salam ${contact.name.split(" ")[0]}! It's ${userName} from AUI Carpool — about the ${ride.fromCity} → ${ride.toCity} ride.`,
               )}
-              label="WhatsApp driver"
+              whatsappLabel="WhatsApp driver"
             />
           )}
           {!past && (booking.status === "pending" || booking.status === "accepted") && ride.status === "active" && (
@@ -283,13 +284,14 @@ async function AcceptedPassengerRow({
   return (
     <PassengerRow booking={booking}>
       {contact && !past && (
-        <WhatsAppButton
-          className="w-auto px-3.5 py-2 text-xs"
-          href={whatsappLink(
+        <ContactReveal
+          compact
+          phone={contact.phone}
+          whatsappHref={whatsappLink(
             contact.phone,
             `Salam ${contact.name.split(" ")[0]}! ${userName} here — your driver for ${ride.fromCity} → ${ride.toCity} on AUI Carpool.`,
           )}
-          label="WhatsApp"
+          whatsappLabel="WhatsApp"
         />
       )}
       {past && !reviewed && (
