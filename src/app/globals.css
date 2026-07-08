@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  /* AUI-green brand scale ("pine") */
+  --color-pine-50: #f2f7f4;
+  --color-pine-100: #dfede5;
+  --color-pine-200: #c0dbcc;
+  --color-pine-300: #94c1a9;
+  --color-pine-400: #64a182;
+  --color-pine-500: #428463;
+  --color-pine-600: #2e694d;
+  --color-pine-700: #0f5132;
+  --color-pine-800: #0c4029;
+  --color-pine-900: #092f1f;
+  --color-pine-950: #051d13;
+
+  /* Warm accent, used sparingly */
+  --color-saffron-100: #faf0da;
+  --color-saffron-200: #f3ddab;
+  --color-saffron-300: #ecc97d;
+  --color-saffron-400: #e9b44c;
+  --color-saffron-500: #d99a2b;
+  --color-saffron-600: #b77e1b;
+  --color-saffron-700: #8f6013;
+
+  /* Paper + ink neutrals */
+  --color-paper: #faf7f1;
+  --color-paper-dim: #f3efe6;
+  --color-line: #e6e1d5;
+  --color-line-strong: #d5cfc0;
+  --color-ink: #1a201c;
+  --color-ink-soft: #4c554f;
+  --color-ink-faint: #79837c;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+
+  --shadow-card: 0 1px 2px rgb(9 47 31 / 0.05), 0 4px 16px -8px rgb(9 47 31 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(9 47 31 / 0.06), 0 12px 32px -12px rgb(9 47 31 / 0.22);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-pine-200);
+  color: var(--color-pine-900);
+}
+
+/* Dotted route connector used in ride cards */
+.route-dots {
+  background-image: radial-gradient(circle, var(--color-line-strong) 1.2px, transparent 1.3px);
+  background-size: 8px 8px;
+  background-repeat: repeat-x;
+  background-position: center;
+}
