@@ -36,35 +36,27 @@ export default function LandingPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-pine-900">
-        <ZelligePattern className="text-pine-700/30" id="hero-zellige" />
-        <div
-          aria-hidden
-          className="absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-pine-700/40 blur-3xl"
-        />
+      <section
+        className="relative overflow-hidden bg-pine-900 bg-cover bg-center"
+        style={{ backgroundImage: "url('/images/aui-hero.png')" }}
+      >
+        <div aria-hidden className="absolute inset-0 bg-pine-950/70" />
         <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-12 sm:px-6 sm:pb-20 sm:pt-16">
-          <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-            <div>
-              <p className="inline-flex items-center gap-2 rounded-full border border-pine-600/60 bg-pine-800/60 px-3.5 py-1.5 text-xs font-medium text-pine-100">
-                <GraduationCap size={14} />
-                For the AUI community, verified by @aui.ma email
-              </p>
-              <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-paper sm:text-5xl">
-                Leaving Ifrane?
-                <br />
-                <span className="text-saffron-300">Ride with your campus.</span>
-              </h1>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-pine-200">
-                Share rides between Ifrane and the rest of Morocco with people
-                from AUI. Split the fuel in cash and skip the grand taxi
-                scramble.
-              </p>
-            </div>
-            <Photo
-              src="/images/car.jpg"
-              alt="AUI members sharing a ride out of Ifrane"
-              className="hidden w-full rounded-3xl border border-pine-700/60 object-cover shadow-lift lg:block lg:aspect-[16/11]"
-            />
+          <div className="max-w-2xl">
+            <p className="inline-flex items-center gap-2 rounded-full border border-pine-600/60 bg-pine-800/60 px-3.5 py-1.5 text-xs font-medium text-pine-100">
+              <GraduationCap size={14} />
+              For the AUI community, verified by @aui.ma email
+            </p>
+            <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-paper sm:text-5xl">
+              Leaving Ifrane?
+              <br />
+              <span className="text-saffron-300">Ride with your campus.</span>
+            </h1>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-pine-200">
+              Share rides between Ifrane and the rest of Morocco with people
+              from AUI. Split the fuel in cash and skip the grand taxi
+              scramble.
+            </p>
           </div>
 
           <form
