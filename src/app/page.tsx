@@ -182,8 +182,8 @@ export default function LandingPage() {
               </ol>
             </div>
             <Photo
-              src="/images/campus.jpg"
-              alt="Al Akhawayn University campus in Ifrane"
+              src="/images/how-it-works-car.jpg"
+              alt="AUI students sharing a ride near campus"
               className="w-full max-w-sm self-center rounded-3xl border border-line object-cover shadow-card sm:aspect-[4/3] lg:justify-self-end"
             />
           </div>
