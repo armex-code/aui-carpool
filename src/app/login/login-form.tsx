@@ -2,7 +2,8 @@
 
 import { useActionState } from "react";
 import { requestOtp, verifyOtp, type AuthState } from "@/app/actions";
-import { Button, FormError, Input, Label, Notice, FieldHint } from "@/components/ui";
+import { Button, FormError, Label, Notice, FieldHint } from "@/components/ui";
+import { SmoothInput } from "@/components/smooth-input";
 
 const initial: AuthState = { step: "email" };
 
@@ -24,7 +25,7 @@ export function LoginForm() {
         <input type="hidden" name="email" value={requestState.email} />
         <div>
           <Label htmlFor="code">6-digit code</Label>
-          <Input
+          <SmoothInput
             id="code"
             name="code"
             inputMode="numeric"
@@ -56,7 +57,7 @@ export function LoginForm() {
       <FormError>{requestState.error}</FormError>
       <div>
         <Label htmlFor="email">Your AUI email</Label>
-        <Input
+        <SmoothInput
           id="email"
           name="email"
           type="email"

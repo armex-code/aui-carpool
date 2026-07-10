@@ -10,8 +10,8 @@ import {
   Input,
   Label,
   Select,
-  Textarea,
 } from "@/components/ui";
+import { SmoothTextarea } from "@/components/smooth-input";
 
 export function RequestForm() {
   const [state, action, pending] = useActionState<FormState, FormData>(
@@ -87,7 +87,7 @@ export function RequestForm() {
         <Label htmlFor="notes">
           Details <span className="font-normal text-ink-faint">(optional)</span>
         </Label>
-        <Textarea
+        <SmoothTextarea
           id="notes"
           name="notes"
           placeholder="Luggage, exact area, how flexible you are on time…"

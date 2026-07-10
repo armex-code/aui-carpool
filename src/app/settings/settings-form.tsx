@@ -6,12 +6,11 @@ import {
   Button,
   FieldHint,
   FormError,
-  Input,
   Label,
   Notice,
-  Textarea,
 } from "@/components/ui";
 import { RoleVibeFields } from "@/components/role-vibe-fields";
+import { SmoothInput, SmoothTextarea } from "@/components/smooth-input";
 import type { RolePref } from "@/lib/types";
 
 export function SettingsForm({
@@ -38,11 +37,11 @@ export function SettingsForm({
       {state.success && <Notice>Saved.</Notice>}
       <div>
         <Label htmlFor="fullName">Full name</Label>
-        <Input id="fullName" name="fullName" defaultValue={defaultName} required />
+        <SmoothInput id="fullName" name="fullName" defaultValue={defaultName} required />
       </div>
       <div>
         <Label htmlFor="phone">Moroccan mobile</Label>
-        <Input
+        <SmoothInput
           id="phone"
           name="phone"
           type="tel"
@@ -58,7 +57,7 @@ export function SettingsForm({
         <Label htmlFor="bio">
           About you <span className="font-normal text-ink-faint">(optional)</span>
         </Label>
-        <Textarea id="bio" name="bio" defaultValue={defaultBio} />
+        <SmoothTextarea id="bio" name="bio" defaultValue={defaultBio} />
       </div>
       <RoleVibeFields defaultRole={defaultRole} defaultVibe={defaultVibe} />
       <Button type="submit" disabled={pending}>

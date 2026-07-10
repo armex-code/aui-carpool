@@ -6,11 +6,10 @@ import {
   Button,
   FieldHint,
   FormError,
-  Input,
   Label,
-  Textarea,
 } from "@/components/ui";
 import { RoleVibeFields } from "@/components/role-vibe-fields";
+import { SmoothInput, SmoothTextarea } from "@/components/smooth-input";
 import type { RolePref } from "@/lib/types";
 
 export function OnboardingForm({
@@ -36,7 +35,7 @@ export function OnboardingForm({
       <FormError>{state.error}</FormError>
       <div>
         <Label htmlFor="fullName">Full name</Label>
-        <Input
+        <SmoothInput
           id="fullName"
           name="fullName"
           defaultValue={defaultName}
@@ -46,7 +45,7 @@ export function OnboardingForm({
       </div>
       <div>
         <Label htmlFor="phone">Moroccan mobile</Label>
-        <Input
+        <SmoothInput
           id="phone"
           name="phone"
           type="tel"
@@ -63,7 +62,7 @@ export function OnboardingForm({
         <Label htmlFor="bio">
           A line about you <span className="font-normal text-ink-faint">(optional)</span>
         </Label>
-        <Textarea
+        <SmoothTextarea
           id="bio"
           name="bio"
           defaultValue={defaultBio}

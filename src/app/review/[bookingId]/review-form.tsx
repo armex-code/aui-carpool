@@ -4,7 +4,8 @@ import { useActionState, useState } from "react";
 import { Star } from "lucide-react";
 import { submitReviewAction, type FormState } from "@/app/actions";
 import { REVIEW_TAGS } from "@/lib/campus";
-import { Button, FormError, Label, Textarea } from "@/components/ui";
+import { Button, FormError, Label } from "@/components/ui";
+import { SmoothTextarea } from "@/components/smooth-input";
 
 export function ReviewForm({ bookingId }: { bookingId: string }) {
   const [state, action, pending] = useActionState<FormState, FormData>(
@@ -69,7 +70,7 @@ export function ReviewForm({ bookingId }: { bookingId: string }) {
         <Label htmlFor="comment">
           A few words <span className="font-normal text-ink-faint">(optional)</span>
         </Label>
-        <Textarea
+        <SmoothTextarea
           id="comment"
           name="comment"
           maxLength={400}

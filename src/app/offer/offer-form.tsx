@@ -12,8 +12,8 @@ import {
   Input,
   Label,
   Select,
-  Textarea,
 } from "@/components/ui";
+import { SmoothInput, SmoothTextarea } from "@/components/smooth-input";
 
 export function OfferForm({
   initialFrom,
@@ -85,7 +85,7 @@ export function OfferForm({
             <Label htmlFor="fromDetail">
               Pickup point <span className="font-normal text-ink-faint">(optional)</span>
             </Label>
-            <Input
+            <SmoothInput
               id="fromDetail"
               name="fromDetail"
               placeholder="e.g. AUI main gate"
@@ -95,7 +95,7 @@ export function OfferForm({
             <Label htmlFor="toDetail">
               Drop-off area <span className="font-normal text-ink-faint">(optional)</span>
             </Label>
-            <Input id="toDetail" name="toDetail" placeholder="e.g. Maârif" />
+            <SmoothInput id="toDetail" name="toDetail" placeholder="e.g. Maârif" />
           </div>
         </div>
       </fieldset>
@@ -256,13 +256,13 @@ export function OfferForm({
             <Label htmlFor="carModel">
               Car <span className="font-normal text-ink-faint">(optional)</span>
             </Label>
-            <Input id="carModel" name="carModel" placeholder="e.g. Dacia Duster" />
+            <SmoothInput id="carModel" name="carModel" placeholder="e.g. Dacia Duster" />
           </div>
           <div>
             <Label htmlFor="carColor">
               Color <span className="font-normal text-ink-faint">(optional)</span>
             </Label>
-            <Input id="carColor" name="carColor" placeholder="e.g. Grey" />
+            <SmoothInput id="carColor" name="carColor" placeholder="e.g. Grey" />
           </div>
         </div>
         <div>
@@ -270,7 +270,7 @@ export function OfferForm({
             Anything passengers should know{" "}
             <span className="font-normal text-ink-faint">(optional)</span>
           </Label>
-          <Textarea
+          <SmoothTextarea
             id="notes"
             name="notes"
             placeholder="Luggage space, music, stops on the way, how long you'll wait…"
