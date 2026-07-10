@@ -38,7 +38,7 @@ export default function LandingPage() {
       {/* Hero */}
       <section
         className="relative overflow-hidden bg-pine-900 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/aui-hero.png')" }}
+        style={{ backgroundImage: "url('/images/aui-hero.jpg')" }}
       >
         <div aria-hidden className="absolute inset-0 bg-pine-950/70" />
         <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-12 sm:px-6 sm:pb-20 sm:pt-16">

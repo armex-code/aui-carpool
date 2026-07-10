@@ -286,10 +286,10 @@ export default async function RideDetailPage({
                 </h2>
                 <p className="mt-1 text-xs leading-relaxed text-ink-soft">
                   Tell us if the ride details look unsafe, misleading, or do
-                  not match AUI Carpool rules.
+                  not match Cambus rules.
                 </p>
                 <a
-                  href={`mailto:support@aui-carpool.local?subject=Report ride ${ride.id}`}
+                  href={`mailto:carpool.aui@gmail.com?subject=Report ride ${ride.id}`}
                   className="mt-3 inline-flex w-full items-center justify-center rounded-xl bg-red-700 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-colors hover:bg-red-800"
                 >
                   Send a report
