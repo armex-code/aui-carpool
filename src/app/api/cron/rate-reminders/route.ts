@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
  * Needs Supabase mode plus:
  *   SUPABASE_SERVICE_ROLE_KEY  read emails past row-level security
  *   RESEND_API_KEY             send via resend.com
- *   EMAIL_FROM                 e.g. "AUI Carpool <rides@yourdomain.ma>"
+ *   EMAIL_FROM                 e.g. "Cambus <rides@yourdomain.ma>"
  *   CRON_SECRET                shared secret so only Vercel Cron can call this
  * In demo mode (or with any variable missing) it reports itself skipped.
  */
@@ -99,7 +99,7 @@ export async function GET(request: Request) {
         from,
         to: profile.email,
         subject: `How was your ride ${reminder.route}?`,
-        text: `Salam ${firstName},\n\nYour ride ${reminder.route} is done. Take 20 seconds to rate the person you shared it with. Honest ratings are what keep AUI Carpool safe for everyone.\n\nRate the trip here: ${site}/trips\n\nAUI Carpool`,
+        text: `Salam ${firstName},\n\nYour ride ${reminder.route} is done. Take 20 seconds to rate the person you shared it with. Honest ratings are what keep Cambus safe for everyone.\n\nRate the trip here: ${site}/trips\n\nCambus`,
       }),
     });
     if (response.ok) sent += 1;

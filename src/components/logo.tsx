@@ -16,7 +16,7 @@ export function Logo({
         dark ? "text-paper" : "text-pine-900",
       )}
     >
-      AUI Carpool
+      Cambus
     </Link>
   );
 }

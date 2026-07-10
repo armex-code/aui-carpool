@@ -64,15 +64,15 @@ export function buildSeed(): DemoDb {
   };
 
   const profiles: Profile[] = [
-    { id: "u-demo", email: "demo@aui.ma", fullName: "Demo Student", phone: "0612000000", bio: "Just here to look around.", createdAt: joined(2) },
-    { id: "u-yassine", email: "y.benali@aui.ma", fullName: "Yassine Benali", phone: "0661234501", bio: "SBA senior. I drive home to Casa most weekends. Music requests welcome.", createdAt: joined(28) },
-    { id: "u-salma", email: "s.elamrani@aui.ma", fullName: "Salma El Amrani", phone: "0661234502", bio: "CS junior. Fès every weekend, always on time.", createdAt: joined(19) },
-    { id: "u-omar", email: "o.tazi@aui.ma", fullName: "Omar Tazi", phone: "0661234503", bio: "Engineering grad student. Rabat runs on Fridays.", createdAt: joined(35) },
-    { id: "u-aya", email: "a.bennis@aui.ma", fullName: "Aya Bennis", phone: "0661234504", bio: "HRD sophomore, usually riding to Meknès.", createdAt: joined(9) },
-    { id: "u-mehdi", email: "m.alaoui@aui.ma", fullName: "Mehdi Alaoui", phone: "0661234505", bio: "Marrakchi in exile. Long drives, good playlists.", createdAt: joined(23) },
-    { id: "u-rim", email: "r.chraibi@aui.ma", fullName: "Rim Chraibi", phone: "0661234506", bio: null, createdAt: joined(6) },
-    { id: "u-hamza", email: "h.elfassi@aui.ma", fullName: "Hamza El Fassi", phone: "0661234507", bio: "Fassi, drives back every Sunday evening.", createdAt: joined(15) },
-    { id: "u-nour", email: "n.squalli@aui.ma", fullName: "Nour Squalli", phone: "0661234508", bio: "BA freshman. Looking for regular Rabat rides.", createdAt: joined(4) },
+    { id: "u-demo", email: "demo@aui.ma", fullName: "Demo Student", phone: "0612000000", rolePref: null, vibe: [], bio: "Just here to look around.", createdAt: joined(2) },
+    { id: "u-yassine", email: "y.benali@aui.ma", fullName: "Yassine Benali", phone: "0661234501", rolePref: "driver", vibe: ["Music on", "Chatty"], bio: "SBA senior. I drive home to Casa most weekends. Music requests welcome.", createdAt: joined(28) },
+    { id: "u-salma", email: "s.elamrani@aui.ma", fullName: "Salma El Amrani", phone: "0661234502", rolePref: "driver", vibe: ["Planner", "Quiet ride"], bio: "CS junior. Fès every weekend, always on time.", createdAt: joined(19) },
+    { id: "u-omar", email: "o.tazi@aui.ma", fullName: "Omar Tazi", phone: "0661234503", rolePref: null, vibe: [], bio: "Engineering grad student. Rabat runs on Fridays.", createdAt: joined(35) },
+    { id: "u-aya", email: "a.bennis@aui.ma", fullName: "Aya Bennis", phone: "0661234504", rolePref: null, vibe: [], bio: "HRD sophomore, usually riding to Meknès.", createdAt: joined(9) },
+    { id: "u-mehdi", email: "m.alaoui@aui.ma", fullName: "Mehdi Alaoui", phone: "0661234505", rolePref: null, vibe: [], bio: "Marrakchi in exile. Long drives, good playlists.", createdAt: joined(23) },
+    { id: "u-rim", email: "r.chraibi@aui.ma", fullName: "Rim Chraibi", phone: "0661234506", rolePref: null, vibe: [], bio: null, createdAt: joined(6) },
+    { id: "u-hamza", email: "h.elfassi@aui.ma", fullName: "Hamza El Fassi", phone: "0661234507", rolePref: null, vibe: [], bio: "Fassi, drives back every Sunday evening.", createdAt: joined(15) },
+    { id: "u-nour", email: "n.squalli@aui.ma", fullName: "Nour Squalli", phone: "0661234508", rolePref: "passenger", vibe: ["Early bird", "Quiet ride"], bio: "BA freshman. Looking for regular Rabat rides.", createdAt: joined(4) },
   ];
 
   const rides: Ride[] = [
@@ -81,63 +81,63 @@ export function buildSeed(): DemoDb {
       fromCity: "Ifrane", fromDetail: "AUI main gate", toCity: "Azrou", toDetail: "Grand taxi station",
       departureAt: at(0, 18, 30), seatsTotal: 3, pricePerSeat: 15,
       carModel: "Renault Clio 4", carColor: "White", notes: "Quick Azrou run after class. Leaving on the dot.",
-      isRecurring: false, recurrenceDays: [], status: "active", createdAt: daysAgo(1, 10),
+      isRecurring: false, recurrenceDays: [], category: null, eventName: null, womenOnly: true, status: "active", createdAt: daysAgo(1, 10),
     },
     {
       id: "r-meknes-tmrw", driverId: "u-mehdi",
       fromCity: "Ifrane", fromDetail: "Marché parking", toCity: "Meknès", toDetail: "Hamria",
       departureAt: at(1, 14, 0), seatsTotal: 3, pricePerSeat: 40,
       carModel: "Fiat Tipo", carColor: "Silver", notes: "Can drop you anywhere central. One medium bag each please.",
-      isRecurring: false, recurrenceDays: [], status: "active", createdAt: daysAgo(1, 9),
+      isRecurring: false, recurrenceDays: [], category: null, eventName: null, womenOnly: false, status: "active", createdAt: daysAgo(1, 9),
     },
     {
       id: "r-fes-fri", driverId: "u-salma",
       fromCity: "Ifrane", fromDetail: "AUI main gate", toCity: "Fès", toDetail: "Route d'Imouzzer / Atlas",
       departureAt: nextWeekday("fri", 17, 0), seatsTotal: 3, pricePerSeat: 40,
       carModel: "Renault Clio 4", carColor: "White", notes: "Weekly ride home. I leave right after Friday classes.",
-      isRecurring: true, recurrenceDays: ["fri"], status: "active", createdAt: daysAgo(20, 12),
+      isRecurring: true, recurrenceDays: ["fri"], category: null, eventName: null, womenOnly: false, status: "active", createdAt: daysAgo(20, 12),
     },
     {
       id: "r-casa-fri", driverId: "u-yassine",
       fromCity: "Ifrane", fromDetail: "AUI main gate", toCity: "Casablanca", toDetail: "Maârif or Gauthier",
       departureAt: nextWeekday("fri", 16, 30), seatsTotal: 3, pricePerSeat: 150,
       carModel: "Dacia Duster", carColor: "Grey", notes: "Highway all the way, one coffee stop at Khouribga toll. AC works, promise.",
-      isRecurring: true, recurrenceDays: ["fri"], status: "active", createdAt: daysAgo(30, 15),
+      isRecurring: true, recurrenceDays: ["fri"], category: null, eventName: null, womenOnly: false, status: "active", createdAt: daysAgo(30, 15),
     },
     {
       id: "r-rabat-fri", driverId: "u-omar",
       fromCity: "Ifrane", fromDetail: "Downtown, near La Paix", toCity: "Rabat", toDetail: "Agdal",
       departureAt: nextWeekday("fri", 17, 30), seatsTotal: 2, pricePerSeat: 120,
       carModel: "Volkswagen Golf 7", carColor: "Black", notes: "Two seats only, I keep the back seat free for bags.",
-      isRecurring: true, recurrenceDays: ["fri"], status: "active", createdAt: daysAgo(25, 8),
+      isRecurring: true, recurrenceDays: ["fri"], category: null, eventName: null, womenOnly: false, status: "active", createdAt: daysAgo(25, 8),
     },
     {
       id: "r-airport-sat", driverId: "u-mehdi",
       fromCity: "Ifrane", fromDetail: "Building 39 parking", toCity: "Fès–Saïss Airport", toDetail: "Departures",
       departureAt: nextWeekday("sat", 6, 0), seatsTotal: 3, pricePerSeat: 80,
       carModel: "Fiat Tipo", carColor: "Silver", notes: "Early flight crew, this one's for you. I'll wait 5 minutes max.",
-      isRecurring: false, recurrenceDays: [], status: "active", createdAt: daysAgo(3, 21),
+      isRecurring: false, recurrenceDays: [], category: null, eventName: null, womenOnly: false, status: "active", createdAt: daysAgo(3, 21),
     },
     {
       id: "r-fes-sun", driverId: "u-hamza",
       fromCity: "Fès", fromDetail: "Atlas roundabout", toCity: "Ifrane", toDetail: "AUI main gate",
       departureAt: nextWeekday("sun", 19, 0), seatsTotal: 3, pricePerSeat: 40,
       carModel: "Peugeot 208", carColor: "Blue", notes: "The Sunday return. Back on campus before curfew hours.",
-      isRecurring: true, recurrenceDays: ["sun"], status: "active", createdAt: daysAgo(40, 18),
+      isRecurring: true, recurrenceDays: ["sun"], category: null, eventName: null, womenOnly: false, status: "active", createdAt: daysAgo(40, 18),
     },
     {
       id: "r-casa-sun", driverId: "u-yassine",
       fromCity: "Casablanca", fromDetail: "Oasis / Maârif pickup", toCity: "Ifrane", toDetail: "AUI main gate",
       departureAt: nextWeekday("sun", 17, 0), seatsTotal: 3, pricePerSeat: 150,
       carModel: "Dacia Duster", carColor: "Grey", notes: "Sunday return to campus. Leaving Casa at 5pm sharp.",
-      isRecurring: true, recurrenceDays: ["sun"], status: "active", createdAt: daysAgo(30, 15),
+      isRecurring: true, recurrenceDays: ["sun"], category: null, eventName: null, womenOnly: false, status: "active", createdAt: daysAgo(30, 15),
     },
     {
       id: "r-marrakech", driverId: "u-mehdi",
       fromCity: "Ifrane", fromDetail: "AUI main gate", toCity: "Marrakech", toDetail: "Guéliz",
       departureAt: at(6, 9, 0), seatsTotal: 3, pricePerSeat: 220,
       carModel: "Fiat Tipo", carColor: "Silver", notes: "Long one. Leaving early, lunch stop in Beni Mellal.",
-      isRecurring: false, recurrenceDays: [], status: "active", createdAt: daysAgo(2, 13),
+      isRecurring: false, recurrenceDays: [], category: "event", eventName: "ENACTUS national competition", womenOnly: false, status: "active", createdAt: daysAgo(2, 13),
     },
     // Demo user's own ride, with booking requests to manage
     {
@@ -145,7 +145,7 @@ export function buildSeed(): DemoDb {
       fromCity: "Ifrane", fromDetail: "AUI main gate", toCity: "Meknès", toDetail: "Ville nouvelle",
       departureAt: nextWeekday("fri", 15, 0), seatsTotal: 3, pricePerSeat: 40,
       carModel: "Renault Mégane", carColor: "Red", notes: "Room for small bags. Leaving from the main gate.",
-      isRecurring: false, recurrenceDays: [], status: "active", createdAt: daysAgo(2, 10),
+      isRecurring: false, recurrenceDays: [], category: null, eventName: null, womenOnly: false, status: "active", createdAt: daysAgo(2, 10),
     },
     // Past ride so the review flow can be demoed
     {
@@ -153,14 +153,14 @@ export function buildSeed(): DemoDb {
       fromCity: "Ifrane", fromDetail: "AUI main gate", toCity: "Fès", toDetail: "Atlas",
       departureAt: daysAgo(3, 17), seatsTotal: 3, pricePerSeat: 40,
       carModel: "Renault Clio 4", carColor: "White", notes: null,
-      isRecurring: false, recurrenceDays: [], status: "active", createdAt: daysAgo(10, 9),
+      isRecurring: false, recurrenceDays: [], category: null, eventName: null, womenOnly: false, status: "active", createdAt: daysAgo(10, 9),
     },
     {
       id: "r-past-casa", driverId: "u-yassine",
       fromCity: "Ifrane", fromDetail: "AUI main gate", toCity: "Casablanca", toDetail: "Maârif",
       departureAt: daysAgo(10, 16, ), seatsTotal: 3, pricePerSeat: 150,
       carModel: "Dacia Duster", carColor: "Grey", notes: null,
-      isRecurring: false, recurrenceDays: [], status: "active", createdAt: daysAgo(17, 9),
+      isRecurring: false, recurrenceDays: [], category: null, eventName: null, womenOnly: false, status: "active", createdAt: daysAgo(17, 9),
     },
   ];
 
@@ -185,19 +185,19 @@ export function buildSeed(): DemoDb {
       id: "q-nour-rabat", riderId: "u-nour", fromCity: "Ifrane", toCity: "Rabat",
       travelDate: ymd(2), timeOfDay: "afternoon", seats: 1,
       notes: "Finishing class at 2pm, flexible after that. Can share fuel + tolls.",
-      status: "open", createdAt: daysAgo(0, 8),
+      womenOnly: false, status: "open", createdAt: daysAgo(0, 8),
     },
     {
       id: "q-aya-meknes", riderId: "u-aya", fromCity: "Ifrane", toCity: "Meknès",
       travelDate: ymd(3), timeOfDay: "morning", seats: 2,
       notes: "Me + my roommate, both with one small bag.",
-      status: "open", createdAt: daysAgo(1, 13),
+      womenOnly: false, status: "open", createdAt: daysAgo(1, 13),
     },
     {
       id: "q-rim-ifrane", riderId: "u-rim", fromCity: "Casablanca", toCity: "Ifrane",
       travelDate: ymd(4), timeOfDay: "evening", seats: 1,
       notes: "Coming back to campus after a doctor's appointment.",
-      status: "open", createdAt: daysAgo(0, 10),
+      womenOnly: true, status: "open", createdAt: daysAgo(0, 10),
     },
   ];
 

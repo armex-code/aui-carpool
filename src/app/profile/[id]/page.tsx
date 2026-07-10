@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CarFront, Users } from "lucide-react";
 import { getStore } from "@/lib/data";
+import { rolePrefLabel } from "@/lib/campus";
 import { formatDate, memberSince } from "@/lib/utils";
 import { Avatar } from "@/components/avatar";
 import { Stars } from "@/components/stars";
@@ -71,12 +72,27 @@ export default async function ProfilePage({
               <VerifiedBadge />
             </div>
             <p className="mt-1 text-sm text-ink-faint">
-              On AUI Carpool since {memberSince(profile.createdAt)}
+              On Cambus since {memberSince(profile.createdAt)}
             </p>
             {profile.bio && (
               <p className="mt-3 text-sm leading-relaxed text-ink-soft">
                 {profile.bio}
               </p>
+            )}
+            {(profile.rolePref || profile.vibe.length > 0) && (
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {profile.rolePref && (
+                  <Badge tone="green">{rolePrefLabel(profile.rolePref)}</Badge>
+                )}
+                {profile.vibe.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full bg-paper-dim px-2.5 py-0.5 text-xs text-ink-soft"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             )}
           </div>
         </div>

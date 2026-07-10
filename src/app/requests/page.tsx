@@ -95,7 +95,8 @@ export default async function RequestsPage({
                     />
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  {request.womenOnly && <Badge tone="rose">Women only</Badge>}
                   <Badge tone="green">
                     <CalendarDays size={12} />
                     {formatDate(request.travelDate)} · {TIME_LABELS[request.timeOfDay]}

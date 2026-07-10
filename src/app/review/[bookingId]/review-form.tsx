@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { Star } from "lucide-react";
 import { submitReviewAction, type FormState } from "@/app/actions";
+import { REVIEW_TAGS } from "@/lib/campus";
 import { Button, FormError, Label, Textarea } from "@/components/ui";
 
 export function ReviewForm({ bookingId }: { bookingId: string }) {
@@ -46,6 +47,22 @@ export function ReviewForm({ bookingId }: { bookingId: string }) {
           <span className="ml-2 min-w-20 text-sm font-medium text-ink-soft">
             {labels[hover || rating]}
           </span>
+        </div>
+      </div>
+      <div>
+        <Label>
+          Quick tags <span className="font-normal text-ink-faint">(optional)</span>
+        </Label>
+        <div className="flex flex-wrap gap-2">
+          {REVIEW_TAGS.map((tag) => (
+            <label
+              key={tag}
+              className="cursor-pointer rounded-full border border-line-strong bg-white px-3 py-1.5 text-xs font-medium text-ink-soft transition-colors has-[:checked]:border-pine-700 has-[:checked]:bg-pine-700 has-[:checked]:text-paper"
+            >
+              <input type="checkbox" name="tag" value={tag} className="sr-only" />
+              {tag}
+            </label>
+          ))}
         </div>
       </div>
       <div>

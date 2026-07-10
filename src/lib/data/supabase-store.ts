@@ -28,6 +28,8 @@ function mapProfile(row: Row): Profile {
     fullName: row.full_name ?? "",
     phone: row.phone ?? null,
     bio: row.bio ?? null,
+    rolePref: row.role_pref ?? null,
+    vibe: (row.vibe ?? []) as string[],
     createdAt: row.created_at,
   };
 }
@@ -37,6 +39,8 @@ function mapPublicProfile(row: Row): PublicProfile {
     id: row.id,
     fullName: row.full_name ?? "",
     bio: row.bio ?? null,
+    rolePref: row.role_pref ?? null,
+    vibe: (row.vibe ?? []) as string[],
     createdAt: row.created_at,
     verified: true,
     driverAvg: row.driver_avg === null ? null : Number(row.driver_avg),
@@ -62,6 +66,9 @@ function mapRide(row: Row): Ride {
     notes: row.notes ?? null,
     isRecurring: row.is_recurring,
     recurrenceDays: (row.recurrence_days ?? []) as Weekday[],
+    category: row.category ?? null,
+    eventName: row.event_name ?? null,
+    womenOnly: Boolean(row.women_only),
     status: row.status,
     createdAt: row.created_at,
   };
@@ -88,6 +95,7 @@ function mapRequest(row: Row): RideRequest {
     timeOfDay: row.time_of_day,
     seats: row.seats,
     notes: row.notes ?? null,
+    womenOnly: Boolean(row.women_only),
     status: row.status,
     createdAt: row.created_at,
   };
@@ -162,13 +170,21 @@ export class SupabaseStore implements DataStore {
 
   async updateProfile(
     id: string,
-    patch: { fullName?: string; phone?: string; bio?: string },
+    patch: {
+      fullName?: string;
+      phone?: string;
+      bio?: string;
+      rolePref?: import("@/lib/types").RolePref | null;
+      vibe?: string[];
+    },
   ) {
     const sb = await createClient();
     const update: Row = {};
     if (patch.fullName !== undefined) update.full_name = patch.fullName;
     if (patch.phone !== undefined) update.phone = patch.phone;
     if (patch.bio !== undefined) update.bio = patch.bio;
+    if (patch.rolePref !== undefined) update.role_pref = patch.rolePref;
+    if (patch.vibe !== undefined) update.vibe = patch.vibe;
     await sb.from("profiles").update(update).eq("id", id);
   }
 
@@ -225,6 +241,9 @@ export class SupabaseStore implements DataStore {
         notes: input.notes,
         is_recurring: input.isRecurring,
         recurrence_days: input.recurrenceDays,
+        category: input.category,
+        event_name: input.eventName,
+        women_only: input.womenOnly,
       })
       .select("id")
       .single();
@@ -461,6 +480,7 @@ export class SupabaseStore implements DataStore {
         time_of_day: input.timeOfDay,
         seats: input.seats,
         notes: input.notes,
+        women_only: input.womenOnly,
       })
       .select("id")
       .single();

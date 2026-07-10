@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { getStore } from "@/lib/data";
 import { getCurrentProfile } from "@/lib/auth";
+import { tripTypeLabel } from "@/lib/campus";
 import {
   formatDateLong,
   formatMoney,
@@ -102,6 +103,14 @@ export default async function RideDetailPage({
                   {formatRecurrence(ride.recurrenceDays)}
                 </Badge>
               )}
+              {ride.category && (
+                <Badge tone="amber">
+                  {ride.category === "event" && ride.eventName
+                    ? ride.eventName
+                    : tripTypeLabel(ride.category)}
+                </Badge>
+              )}
+              {ride.womenOnly && <Badge tone="rose">Women only</Badge>}
               {ride.status === "cancelled" && <Badge tone="red">Cancelled</Badge>}
               {departed && ride.status === "active" && (
                 <Badge tone="neutral">Departed</Badge>
@@ -172,12 +181,24 @@ export default async function RideDetailPage({
                   className="mt-1"
                 />
                 <p className="mt-1 text-xs text-ink-faint">
-                  On AUI Carpool since {memberSince(ride.driver.createdAt)}
+                  On Cambus since {memberSince(ride.driver.createdAt)}
                 </p>
                 {ride.driver.bio && (
                   <p className="mt-3 text-sm leading-relaxed text-ink-soft">
                     {ride.driver.bio}
                   </p>
+                )}
+                {ride.driver.vibe.length > 0 && (
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {ride.driver.vibe.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full bg-paper-dim px-2.5 py-0.5 text-xs text-ink-soft"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 )}
               </div>
             </div>
@@ -226,7 +247,7 @@ export default async function RideDetailPage({
                       phone={contact.phone}
                       whatsappHref={whatsappLink(
                         contact.phone,
-                        `Salam ${contact.name.split(" ")[0]}! It's ${profile.fullName} from AUI Carpool, about the ${ride.fromCity} → ${ride.toCity} ride.`,
+                        `Salam ${contact.name.split(" ")[0]}! It's ${profile.fullName} from Cambus, about the ${ride.fromCity} → ${ride.toCity} ride.`,
                       )}
                       whatsappLabel={`WhatsApp ${contact.name.split(" ")[0]}`}
                     />

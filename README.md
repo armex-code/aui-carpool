@@ -1,4 +1,4 @@
-# AUI Carpool
+# Cambus
 
 Carpooling for the Al Akhawayn University community (students, staff and
 faculty): rides between Ifrane and the rest of Morocco, shared inside the
@@ -61,7 +61,7 @@ Open http://localhost:3000 — you're in demo mode.
 2. In the SQL editor, run `supabase/migrations/001_init.sql`.
 3. In **Authentication → Email Templates → Magic Link**, make sure the
    template includes the `{{ .Token }}` variable so users receive the 6-digit
-   code (e.g. “Your AUI Carpool code is `{{ .Token }}`”).
+   code (e.g. “Your Cambus code is `{{ .Token }}`”).
 4. Copy the project URL and anon key (Project Settings → API) into env vars —
    locally in `.env.local`, and on Vercel under Project → Settings →
    Environment Variables:

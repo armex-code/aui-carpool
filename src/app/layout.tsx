@@ -17,8 +17,8 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   title: {
-    default: "AUI Carpool | rides for the AUI community",
-    template: "%s · AUI Carpool",
+    default: "Cambus | AUI campus rides",
+    template: "%s · Cambus",
   },
   description:
     "Share rides between Ifrane and the rest of Morocco with verified members of the AUI community. Cheaper than a grand taxi, safer than riding with strangers.",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     "Morocco",
   ],
   openGraph: {
-    title: "AUI Carpool",
+    title: "Cambus",
     description:
       "Share rides between Ifrane and the rest of Morocco with verified members of the AUI community.",
     type: "website",

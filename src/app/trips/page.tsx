@@ -132,7 +132,7 @@ async function RidingBookingCard({
               phone={contact.phone}
               whatsappHref={whatsappLink(
                 contact.phone,
-                `Salam ${contact.name.split(" ")[0]}! It's ${userName} from AUI Carpool, about the ${ride.fromCity} → ${ride.toCity} ride.`,
+                `Salam ${contact.name.split(" ")[0]}! It's ${userName} from Cambus, about the ${ride.fromCity} → ${ride.toCity} ride.`,
               )}
               whatsappLabel="WhatsApp driver"
             />
@@ -289,7 +289,7 @@ async function AcceptedPassengerRow({
           phone={contact.phone}
           whatsappHref={whatsappLink(
             contact.phone,
-            `Salam ${contact.name.split(" ")[0]}! ${userName} here, your driver for ${ride.fromCity} → ${ride.toCity} on AUI Carpool.`,
+            `Salam ${contact.name.split(" ")[0]}! ${userName} here, your driver for ${ride.fromCity} → ${ride.toCity} on Cambus.`,
           )}
           whatsappLabel="WhatsApp"
         />

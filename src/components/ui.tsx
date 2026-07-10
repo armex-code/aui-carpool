@@ -58,7 +58,7 @@ export function ButtonLink({
   );
 }
 
-type BadgeTone = "green" | "amber" | "red" | "neutral" | "paper";
+type BadgeTone = "green" | "amber" | "red" | "neutral" | "paper" | "rose";
 
 const badgeTones: Record<BadgeTone, string> = {
   green: "bg-pine-100 text-pine-800",
@@ -66,6 +66,7 @@ const badgeTones: Record<BadgeTone, string> = {
   red: "bg-red-50 text-red-700",
   neutral: "bg-paper-dim text-ink-soft",
   paper: "bg-white/15 text-paper",
+  rose: "bg-rose-50 text-rose-700",
 };
 
 export function Badge({

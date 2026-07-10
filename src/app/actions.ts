@@ -11,7 +11,6 @@ import {
   DEMO_OTP_CODE,
   DEMO_PENDING_COOKIE,
   DEMO_SESSION_COOKIE,
-  DEMO_SUPABASE_PASSWORD,
   encodeDemoSession,
   getCurrentProfile,
   getSessionUserId,
@@ -19,7 +18,8 @@ import {
 } from "@/lib/auth";
 import { isAuiEmail } from "@/lib/utils";
 import { CITIES } from "@/lib/cities";
-import type { TimeOfDay, Weekday } from "@/lib/types";
+import { TRIP_TYPES, VIBE_TAGS } from "@/lib/campus";
+import type { RideCategory, RolePref, TimeOfDay, Weekday } from "@/lib/types";
 
 export interface AuthState {
   step: "email" | "code";
@@ -64,7 +64,7 @@ export async function requestOtp(
   }
 
   if (supabaseEnabled()) {
-    if (email === DEMO_EMAIL) {
+    if (email === DEMO_EMAIL && process.env.DEMO_ACCOUNT_PASSWORD) {
       return {
         step: "code",
         email,
@@ -103,15 +103,16 @@ export async function verifyOtp(
 
   if (supabaseEnabled()) {
     const sb = await createClient();
-    if (email === DEMO_EMAIL) {
+    const demoPassword = process.env.DEMO_ACCOUNT_PASSWORD;
+    if (email === DEMO_EMAIL && demoPassword) {
       if (code !== DEMO_OTP_CODE)
         return { step: "code", email, error: `The demo account code is ${DEMO_OTP_CODE}.` };
       const { error } = await sb.auth.signInWithPassword({
         email,
-        password: DEMO_SUPABASE_PASSWORD,
+        password: demoPassword,
       });
       if (error)
-        return { step: "email", error: "The demo account isn't set up in this database. Run supabase/seed.sql first." };
+        return { step: "email", error: "The demo account isn't available on this deployment." };
     } else {
       const { error } = await sb.auth.verifyOtp({
         email,
@@ -164,9 +165,25 @@ export async function completeOnboarding(
   if (fullName.length < 3) return { error: "Please enter your full name." };
   if (!/^(\+212|0)[5-8]\d{8}$/.test(phone.replace(/[\s-]/g, "")))
     return { error: "Enter a valid Moroccan mobile number (e.g. 06 12 34 56 78). It is only shared after a booking is confirmed." };
-  await getStore().updateProfile(userId, { fullName, phone, bio });
+  const { rolePref, vibe } = parseRoleAndVibe(formData);
+  await getStore().updateProfile(userId, { fullName, phone, bio, rolePref, vibe });
   await refreshDemoSessionCookie(userId);
   redirect("/rides");
+}
+
+const ROLE_VALUES: RolePref[] = ["driver", "passenger", "both"];
+
+function parseRoleAndVibe(formData: FormData) {
+  const roleRaw = str(formData, "rolePref");
+  const rolePref = (ROLE_VALUES as string[]).includes(roleRaw)
+    ? (roleRaw as RolePref)
+    : null;
+  const vibe = formData
+    .getAll("vibe")
+    .filter((v): v is string => typeof v === "string")
+    .filter((v) => (VIBE_TAGS as readonly string[]).includes(v))
+    .slice(0, 4);
+  return { rolePref, vibe };
 }
 
 /** Demo mode: keep the profile-carrying session cookie in sync after edits. */
@@ -194,7 +211,8 @@ export async function updateProfileAction(
   if (fullName.length < 3) return { error: "Please enter your full name." };
   if (!/^(\+212|0)[5-8]\d{8}$/.test(phone.replace(/[\s-]/g, "")))
     return { error: "Enter a valid Moroccan mobile number." };
-  await getStore().updateProfile(userId, { fullName, phone, bio });
+  const { rolePref, vibe } = parseRoleAndVibe(formData);
+  await getStore().updateProfile(userId, { fullName, phone, bio, rolePref, vibe });
   await refreshDemoSessionCookie(userId);
   revalidatePath("/settings");
   return { success: true };
@@ -223,6 +241,12 @@ export async function createRideAction(
   const recurrenceDays = WEEKDAY_VALUES.filter(
     (d) => formData.get(`day-${d}`) === "on",
   );
+  const categoryRaw = str(formData, "category");
+  const category = TRIP_TYPES.some((t) => t.value === categoryRaw)
+    ? (categoryRaw as RideCategory)
+    : null;
+  const eventName = category === "event" ? str(formData, "eventName") || null : null;
+  const womenOnly = formData.get("womenOnly") === "on";
 
   if (!CITIES.includes(fromCity as (typeof CITIES)[number]))
     return { error: "Pick a departure city." };
@@ -231,7 +255,7 @@ export async function createRideAction(
   if (fromCity === toCity)
     return { error: "Departure and destination can't be the same place." };
   if (fromCity !== "Ifrane" && toCity !== "Ifrane")
-    return { error: "Rides on AUI Carpool start or end in Ifrane. Set one side of the trip to Ifrane." };
+    return { error: "Rides on Cambus start or end in Ifrane. Set one side of the trip to Ifrane." };
   if (!date || !time) return { error: "Set the departure date and time." };
   const departureAt = new Date(`${date}T${time}`);
   if (Number.isNaN(departureAt.getTime()) || departureAt.getTime() < Date.now())
@@ -256,6 +280,9 @@ export async function createRideAction(
     notes: str(formData, "notes") || null,
     isRecurring,
     recurrenceDays: isRecurring ? recurrenceDays : [],
+    category,
+    eventName,
+    womenOnly,
   });
   if (!result.ok) return { error: result.error };
   revalidatePath("/rides");
@@ -328,7 +355,7 @@ export async function createRequestAction(
   if (fromCity === toCity)
     return { error: "Departure and destination can't be the same place." };
   if (fromCity !== "Ifrane" && toCity !== "Ifrane")
-    return { error: "Requests on AUI Carpool start or end in Ifrane. Set one side of the trip to Ifrane." };
+    return { error: "Requests on Cambus start or end in Ifrane. Set one side of the trip to Ifrane." };
   if (!travelDate || travelDate < new Date().toISOString().slice(0, 10))
     return { error: "Pick a date from today onward." };
   if (!TIMES_OF_DAY.includes(timeOfDay))
@@ -343,6 +370,7 @@ export async function createRequestAction(
     timeOfDay,
     seats,
     notes: str(formData, "notes") || null,
+    womenOnly: formData.get("womenOnly") === "on",
   });
   if (!result.ok) return { error: result.error };
   revalidatePath("/requests");
@@ -368,7 +396,12 @@ export async function submitReviewAction(
   if (!userId) redirect("/login");
   const bookingId = str(formData, "bookingId");
   const rating = Number(str(formData, "rating"));
-  const comment = str(formData, "comment") || null;
+  const tags = formData
+    .getAll("tag")
+    .filter((t): t is string => typeof t === "string")
+    .slice(0, 6);
+  const text = str(formData, "comment");
+  const comment = [tags.join(", "), text].filter(Boolean).join(". ") || null;
   if (!Number.isInteger(rating) || rating < 1 || rating > 5)
     return { error: "Pick a star rating first." };
   const result = await getStore().createReview(userId, bookingId, rating, comment);

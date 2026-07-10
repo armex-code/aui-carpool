@@ -11,15 +11,21 @@ import {
   Notice,
   Textarea,
 } from "@/components/ui";
+import { RoleVibeFields } from "@/components/role-vibe-fields";
+import type { RolePref } from "@/lib/types";
 
 export function SettingsForm({
   defaultName,
   defaultPhone,
   defaultBio,
+  defaultRole,
+  defaultVibe,
 }: {
   defaultName: string;
   defaultPhone: string;
   defaultBio: string;
+  defaultRole: RolePref | null;
+  defaultVibe: string[];
 }) {
   const [state, action, pending] = useActionState<FormState, FormData>(
     updateProfileAction,
@@ -54,6 +60,7 @@ export function SettingsForm({
         </Label>
         <Textarea id="bio" name="bio" defaultValue={defaultBio} />
       </div>
+      <RoleVibeFields defaultRole={defaultRole} defaultVibe={defaultVibe} />
       <Button type="submit" disabled={pending}>
         {pending ? "Saving…" : "Save changes"}
       </Button>

@@ -5,10 +5,10 @@ export const metadata: Metadata = { title: "General conditions" };
 
 const SECTIONS: { title: string; body: React.ReactNode }[] = [
   {
-    title: "1. What AUI Carpool is",
+    title: "1. What Cambus is",
     body: (
       <>
-        AUI Carpool is a notice board that connects members of the Al Akhawayn
+        Cambus is a notice board that connects members of the Al Akhawayn
         University community who want to share car trips that start or end in
         Ifrane. The platform is an independent initiative run by students. It
         is not operated, endorsed or supervised by Al Akhawayn University, and
@@ -83,7 +83,7 @@ const SECTIONS: { title: string; body: React.ReactNode }[] = [
     body: (
       <>
         These conditions may evolve as the platform grows. Meaningful changes
-        will be announced on the site. Continuing to use AUI Carpool after a
+        will be announced on the site. Continuing to use Cambus after a
         change means you accept the new version.
       </>
     ),

@@ -28,7 +28,13 @@ export interface DataStore {
   getPublicProfile(id: string): Promise<PublicProfile | null>;
   updateProfile(
     id: string,
-    patch: { fullName?: string; phone?: string; bio?: string },
+    patch: {
+      fullName?: string;
+      phone?: string;
+      bio?: string;
+      rolePref?: import("@/lib/types").RolePref | null;
+      vibe?: string[];
+    },
   ): Promise<void>;
 
   // rides

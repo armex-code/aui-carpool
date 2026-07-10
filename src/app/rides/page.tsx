@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { Search } from "lucide-react";
+import Link from "next/link";
+import { Search, TrendingUp } from "lucide-react";
 import { getStore } from "@/lib/data";
 import { CITIES } from "@/lib/cities";
+import { RIDE_CHIPS, upcomingDemandPeriod } from "@/lib/campus";
+import { cn } from "@/lib/utils";
 import { RideCard } from "@/components/ride-card";
 import { ButtonLink, EmptyState } from "@/components/ui";
 
@@ -10,7 +13,7 @@ export const metadata: Metadata = { title: "Find a ride" };
 export default async function RidesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ from?: string; to?: string; date?: string }>;
+  searchParams: Promise<{ from?: string; to?: string; date?: string; cat?: string }>;
 }) {
   const params = await searchParams;
   const filters = {
@@ -18,8 +21,21 @@ export default async function RidesPage({
     to: params.to || undefined,
     date: params.date || undefined,
   };
-  const rides = await getStore().listRides(filters);
-  const filtered = Boolean(filters.from || filters.to || filters.date);
+  const allRides = await getStore().listRides(filters);
+  const chip = RIDE_CHIPS.find((c) => c.key === params.cat) ?? null;
+  const rides = chip ? allRides.filter(chip.match) : allRides;
+  const filtered = Boolean(filters.from || filters.to || filters.date || chip);
+  const demand = upcomingDemandPeriod();
+
+  const chipHref = (key: string | null) => {
+    const query = new URLSearchParams();
+    if (filters.from) query.set("from", filters.from);
+    if (filters.to) query.set("to", filters.to);
+    if (filters.date) query.set("date", filters.date);
+    if (key) query.set("cat", key);
+    const qs = query.toString();
+    return qs ? `/rides?${qs}` : "/rides";
+  };
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6">
@@ -36,6 +52,16 @@ export default async function RidesPage({
           Can't find one? Post a request
         </ButtonLink>
       </div>
+
+      {demand && (
+        <p className="mt-5 flex items-start gap-2.5 rounded-xl border border-saffron-300 bg-saffron-100/60 px-4 py-3 text-sm text-saffron-700">
+          <TrendingUp size={17} className="mt-0.5 shrink-0" />
+          <span>
+            <span className="font-semibold">{demand.label}:</span>{" "}
+            {demand.message}
+          </span>
+        </p>
+      )}
 
       <form
         action="/rides"
@@ -94,7 +120,35 @@ export default async function RidesPage({
         </button>
       </form>
 
-      <div className="mt-8 space-y-4">
+      <div className="mt-5 flex flex-wrap gap-2">
+        <Link
+          href={chipHref(null)}
+          className={cn(
+            "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
+            !chip
+              ? "border-pine-700 bg-pine-700 text-paper"
+              : "border-line-strong bg-white text-ink-soft hover:border-pine-400 hover:text-pine-800",
+          )}
+        >
+          All rides
+        </Link>
+        {RIDE_CHIPS.map((c) => (
+          <Link
+            key={c.key}
+            href={chipHref(c.key)}
+            className={cn(
+              "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
+              chip?.key === c.key
+                ? "border-pine-700 bg-pine-700 text-paper"
+                : "border-line-strong bg-white text-ink-soft hover:border-pine-400 hover:text-pine-800",
+            )}
+          >
+            {c.label}
+          </Link>
+        ))}
+      </div>
+
+      <div className="mt-6 space-y-4">
         {rides.length === 0 ? (
           <EmptyState
             title={filtered ? "No rides match that search" : "No upcoming rides yet"}

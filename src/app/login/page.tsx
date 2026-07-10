@@ -21,7 +21,7 @@ export default async function LoginPage() {
           AUI community only, verified by email
         </span>
         <h1 className="mt-4 font-display text-3xl font-semibold text-ink">
-          Sign in to AUI Carpool
+          Sign in to Cambus
         </h1>
         <p className="mt-2 text-sm text-ink-soft">
           One code to your @aui.ma inbox and you're in.

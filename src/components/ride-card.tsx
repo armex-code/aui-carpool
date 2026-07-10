@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Repeat, Users } from "lucide-react";
+import { CalendarDays, Repeat, Users } from "lucide-react";
+import { tripTypeLabel } from "@/lib/campus";
 import type { RideWithDriver } from "@/lib/types";
 import {
   formatDay,
@@ -39,6 +40,20 @@ export function RideCard({ ride }: { ride: RideWithDriver }) {
         toDetail={ride.toDetail}
         className="mt-3"
       />
+
+      {(ride.category || ride.womenOnly) && (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {ride.category && (
+            <Badge tone="amber">
+              <CalendarDays size={11} />
+              {ride.category === "event" && ride.eventName
+                ? ride.eventName
+                : tripTypeLabel(ride.category)}
+            </Badge>
+          )}
+          {ride.womenOnly && <Badge tone="rose">Women only</Badge>}
+        </div>
+      )}
 
       <div className="mt-4 flex items-center justify-between gap-3 border-t border-line pt-4">
         <div className="flex min-w-0 items-center gap-2.5">

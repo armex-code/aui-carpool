@@ -24,7 +24,7 @@ export function RequestForm() {
     <form action={action} className="space-y-5">
       <FormError>{state.error}</FormError>
       <p className="text-xs text-ink-faint">
-        Every trip on AUI Carpool starts or ends in Ifrane.
+        Every trip on Cambus starts or ends in Ifrane.
       </p>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -70,6 +70,19 @@ export function RequestForm() {
           </Select>
         </div>
       </div>
+      <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-line bg-paper-dim/60 px-4 py-3">
+        <input
+          type="checkbox"
+          name="womenOnly"
+          className="h-4 w-4 accent-pine-700"
+        />
+        <span className="text-sm">
+          <span className="font-medium text-ink">Women-only ride preferred</span>
+          <span className="block text-xs text-ink-faint">
+            Shown on your request so the right drivers answer.
+          </span>
+        </span>
+      </label>
       <div>
         <Label htmlFor="notes">
           Details <span className="font-normal text-ink-faint">(optional)</span>

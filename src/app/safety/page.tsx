@@ -57,7 +57,7 @@ export default function SafetyPage() {
             Safety & community rules
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-pine-200 sm:text-base">
-            AUI Carpool works because everyone in the car answers to the same
+            Cambus works because everyone in the car answers to the same
             campus. Here's how we keep it that way.
           </p>
         </div>

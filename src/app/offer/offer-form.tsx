@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { createRideAction, type FormState } from "@/app/actions";
 import { CITIES, priceHint, roadKm, suggestedPrice } from "@/lib/cities";
+import { TRIP_TYPES } from "@/lib/campus";
 import { WEEKDAYS } from "@/lib/utils";
 import {
   Button,
@@ -30,6 +31,7 @@ export function OfferForm({
   const [toCity, setToCity] = useState(validCity(initialTo));
   const [recurring, setRecurring] = useState(false);
   const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
   const hint = toCity ? priceHint(fromCity, toCity) : null;
   const suggested = toCity ? suggestedPrice(fromCity, toCity) : null;
   const km = toCity ? roadKm(fromCity, toCity) : null;
@@ -45,7 +47,7 @@ export function OfferForm({
           Route
         </legend>
         <p className="text-xs text-ink-faint">
-          Every ride on AUI Carpool starts or ends in Ifrane.
+          Every ride on Cambus starts or ends in Ifrane.
         </p>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
@@ -144,6 +146,57 @@ export function OfferForm({
             ))}
           </div>
         )}
+      </fieldset>
+
+      <fieldset className="space-y-4">
+        <legend className="font-display text-lg font-semibold text-ink">
+          Trip type
+        </legend>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <Label htmlFor="category">
+              What kind of trip?{" "}
+              <span className="font-normal text-ink-faint">(optional)</span>
+            </Label>
+            <Select
+              id="category"
+              name="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="">Regular ride</option>
+              {TRIP_TYPES.map((t) => (
+                <option key={t.value} value={t.value}>
+                  {t.label}
+                </option>
+              ))}
+            </Select>
+          </div>
+          {category === "event" && (
+            <div>
+              <Label htmlFor="eventName">Which event?</Label>
+              <Input
+                id="eventName"
+                name="eventName"
+                placeholder="e.g. ENACTUS competition, football match…"
+                maxLength={60}
+              />
+            </div>
+          )}
+        </div>
+        <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-line bg-paper-dim/60 px-4 py-3">
+          <input
+            type="checkbox"
+            name="womenOnly"
+            className="h-4 w-4 accent-pine-700"
+          />
+          <span className="text-sm">
+            <span className="font-medium text-ink">Women-only ride</span>
+            <span className="block text-xs text-ink-faint">
+              Shown on the listing. You still approve every request yourself.
+            </span>
+          </span>
+        </label>
       </fieldset>
 
       <fieldset className="space-y-4">

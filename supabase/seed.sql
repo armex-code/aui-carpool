@@ -7,6 +7,12 @@
 -- account demo@aui.ma, sign-in code 424242 in the app), upcoming and past
 -- rides, bookings in every state, reviews, and open ride requests.
 --
+-- Demo account password: replace CHANGE-ME-DEMO-PASSWORD below with a value
+-- of your own BEFORE running, and set the same value as the
+-- DEMO_ACCOUNT_PASSWORD environment variable on your deployment. Keep it
+-- out of the repository; it is what lets the app sign the shared demo
+-- account in with code 424242.
+--
 -- To wipe before real launch:
 --   delete from auth.users where id::text like '11111111-%';
 --   (cascades through profiles, rides, bookings, reviews, requests)
@@ -17,9 +23,9 @@ insert into auth.users
    raw_app_meta_data, raw_user_meta_data, created_at, updated_at,
    confirmation_token, recovery_token, email_change_token_new, email_change)
 values
-  -- demo account: fixed password so the app can sign it in with code 424242
+  -- demo account: set your own password here and in DEMO_ACCOUNT_PASSWORD
   ('00000000-0000-0000-0000-000000000000', '11111111-1111-4111-8111-111111111101', 'authenticated', 'authenticated', 'demo@aui.ma',
-   extensions.crypt('aui-carpool-demo-424242', extensions.gen_salt('bf')), now() - interval '60 days',
+   extensions.crypt('CHANGE-ME-DEMO-PASSWORD', extensions.gen_salt('bf')), now() - interval '60 days',
    '{"provider":"email","providers":["email"]}', '{}', now() - interval '60 days', now(), '', '', '', ''),
   ('00000000-0000-0000-0000-000000000000', '11111111-1111-4111-8111-111111111102', 'authenticated', 'authenticated', 'y.benali@aui.ma', '', now() - interval '400 days',
    '{"provider":"email","providers":["email"]}', '{}', now() - interval '400 days', now(), '', '', '', ''),
@@ -127,3 +133,19 @@ insert into public.ride_requests (id, rider_id, from_city, to_city, travel_date,
   ('44444444-4444-4444-8444-444444444402', '11111111-1111-4111-8111-111111111105', 'Ifrane', 'Meknès', (now() + interval '3 days')::date, 'morning', 2, 'Me and my roommate, both with one small bag.'),
   ('44444444-4444-4444-8444-444444444403', '11111111-1111-4111-8111-111111111107', 'Casablanca', 'Ifrane', (now() + interval '4 days')::date, 'evening', 1, 'Coming back to campus after an appointment.')
 on conflict (id) do nothing;
+
+-- ------------------------------------------------ campus feature examples
+-- Requires migrations/002_campus_features.sql. Tags a few of the sample
+-- rows so trip types, women-only rides and profile vibes have examples.
+update public.rides set category = 'event', event_name = 'ENACTUS national competition'
+where id = '22222222-2222-4222-8222-222222222209';
+update public.rides set women_only = true
+where id = '22222222-2222-4222-8222-222222222201';
+update public.ride_requests set women_only = true
+where id = '44444444-4444-4444-8444-444444444403';
+update public.profiles set role_pref = 'driver', vibe = '{"Music on","Chatty"}'
+where id = '11111111-1111-4111-8111-111111111102';
+update public.profiles set role_pref = 'driver', vibe = '{"Planner","Quiet ride"}'
+where id = '11111111-1111-4111-8111-111111111103';
+update public.profiles set role_pref = 'passenger', vibe = '{"Early bird","Quiet ride"}'
+where id = '11111111-1111-4111-8111-111111111109';

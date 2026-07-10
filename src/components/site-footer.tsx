@@ -32,7 +32,7 @@ export function SiteFooter() {
         </div>
         <div className="mt-10 border-t border-pine-800 pt-6 text-xs text-pine-400">
           <p>
-            AUI Carpool is an independent student initiative and is not
+            Cambus is an independent student initiative and is not
             operated by Al Akhawayn University. Payments happen in cash,
             between members. The platform never touches money.
           </p>

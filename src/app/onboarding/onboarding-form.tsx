@@ -10,15 +10,21 @@ import {
   Label,
   Textarea,
 } from "@/components/ui";
+import { RoleVibeFields } from "@/components/role-vibe-fields";
+import type { RolePref } from "@/lib/types";
 
 export function OnboardingForm({
   defaultName,
   defaultPhone,
   defaultBio,
+  defaultRole,
+  defaultVibe,
 }: {
   defaultName: string;
   defaultPhone: string;
   defaultBio: string;
+  defaultRole: RolePref | null;
+  defaultVibe: string[];
 }) {
   const [state, action, pending] = useActionState<FormState, FormData>(
     completeOnboarding,
@@ -64,6 +70,7 @@ export function OnboardingForm({
           placeholder="School, year, where you usually travel…"
         />
       </div>
+      <RoleVibeFields defaultRole={defaultRole} defaultVibe={defaultVibe} />
       <Button type="submit" className="w-full" size="lg" disabled={pending}>
         {pending ? "Saving…" : "Start carpooling"}
       </Button>

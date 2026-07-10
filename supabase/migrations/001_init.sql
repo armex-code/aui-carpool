@@ -1,4 +1,4 @@
--- AUI Carpool — initial schema
+-- Cambus — initial schema
 -- Run this in the Supabase SQL editor (or `supabase db push`) on a fresh project.
 
 -- ---------------------------------------------------------------- profiles

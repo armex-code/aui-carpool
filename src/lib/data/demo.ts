@@ -53,6 +53,8 @@ function toPublic(profile: Profile): PublicProfile {
     id: profile.id,
     fullName: profile.fullName,
     bio: profile.bio,
+    rolePref: profile.rolePref,
+    vibe: profile.vibe,
     createdAt: profile.createdAt,
     verified: true,
     driverAvg: avg(driver),
@@ -101,6 +103,8 @@ export function findOrCreateDemoProfile(email: string): Profile {
     fullName: guessedName,
     phone: null,
     bio: null,
+    rolePref: null,
+    vibe: [],
     createdAt: new Date().toISOString(),
   };
   db().profiles.push(profile);
@@ -119,13 +123,21 @@ export class DemoStore implements DataStore {
 
   async updateProfile(
     id: string,
-    patch: { fullName?: string; phone?: string; bio?: string },
+    patch: {
+      fullName?: string;
+      phone?: string;
+      bio?: string;
+      rolePref?: import("@/lib/types").RolePref | null;
+      vibe?: string[];
+    },
   ) {
     const profile = db().profiles.find((p) => p.id === id);
     if (!profile) return;
     if (patch.fullName !== undefined) profile.fullName = patch.fullName;
     if (patch.phone !== undefined) profile.phone = patch.phone;
     if (patch.bio !== undefined) profile.bio = patch.bio;
+    if (patch.rolePref !== undefined) profile.rolePref = patch.rolePref;
+    if (patch.vibe !== undefined) profile.vibe = patch.vibe;
   }
 
   async listRides(filters: RideFilters) {

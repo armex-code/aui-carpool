@@ -26,6 +26,8 @@ export default async function OnboardingPage() {
           defaultName={profile.fullName}
           defaultPhone={profile.phone ?? ""}
           defaultBio={profile.bio ?? ""}
+          defaultRole={profile.rolePref}
+          defaultVibe={profile.vibe}
         />
       </Card>
     </div>

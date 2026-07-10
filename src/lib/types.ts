@@ -5,6 +5,8 @@ export type TimeOfDay = "morning" | "afternoon" | "evening" | "flexible";
 export type ReviewedAs = "driver" | "passenger";
 
 export type Weekday = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
+export type RideCategory = "event" | "break" | "exam";
+export type RolePref = "driver" | "passenger" | "both";
 
 export interface Profile {
   id: string;
@@ -12,6 +14,8 @@ export interface Profile {
   fullName: string;
   phone: string | null;
   bio: string | null;
+  rolePref: RolePref | null;
+  vibe: string[];
   createdAt: string;
 }
 
@@ -43,6 +47,9 @@ export interface Ride {
   notes: string | null;
   isRecurring: boolean;
   recurrenceDays: Weekday[];
+  category: RideCategory | null;
+  eventName: string | null;
+  womenOnly: boolean;
   status: RideStatus;
   createdAt: string;
 }
@@ -78,6 +85,7 @@ export interface RideRequest {
   timeOfDay: TimeOfDay;
   seats: number;
   notes: string | null;
+  womenOnly: boolean;
   status: RequestStatus;
   createdAt: string;
 }
@@ -120,6 +128,9 @@ export interface NewRideInput {
   notes: string | null;
   isRecurring: boolean;
   recurrenceDays: Weekday[];
+  category: RideCategory | null;
+  eventName: string | null;
+  womenOnly: boolean;
 }
 
 export interface NewRequestInput {
@@ -129,4 +140,5 @@ export interface NewRequestInput {
   timeOfDay: TimeOfDay;
   seats: number;
   notes: string | null;
+  womenOnly: boolean;
 }

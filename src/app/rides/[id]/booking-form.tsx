@@ -21,7 +21,7 @@ export function BookingForm({
       <FormError>{state.error}</FormError>
       <input type="hidden" name="rideId" value={rideId} />
       <div>
-        <Label htmlFor="seats">Seats</Label>
+        <Label htmlFor="seats">Seats (book for your whole group)</Label>
         <Select id="seats" name="seats" defaultValue="1">
           {Array.from({ length: maxSeats }, (_, i) => i + 1).map((n) => (
             <option key={n} value={n}>
